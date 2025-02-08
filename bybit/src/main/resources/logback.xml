@@ -37,7 +37,7 @@
     </appender>
     <!-- LOGGER -->
 <!--    <logger name="ru.job4j.logging.controller" level="INFO">-->
-    <logger name="org.example.bybit.services" level="INFO">
+    <logger name="org.scanner.bybit.services" level="INFO">
         <appender-ref ref="MyConsoleAppenderName" />
         <appender-ref ref="MyFileAppenderName" />
         <appender-ref ref="MyRollingFileAppenderName"/>
