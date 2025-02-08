@@ -1,0 +1,9 @@
+/.idea/
+
+/bybit/src/main/java/org/scanner/bybit/repository/TestConnect.java
+/bybit/logs/
+/bybit/bybit.iml
+/bybit/target/
+
+/configServer/target/
+/configServer.iml
