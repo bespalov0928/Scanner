@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.scanner</groupId>
-        <artifactId>scanner</artifactId>
-        <version>${revision}</version>
+        <artifactId>scanner-parent</artifactId>
+        <version>1.0.0</version>
     </parent>
     <groupId>org.bybit</groupId>
     <artifactId>bybit</artifactId>
-    <version>0.0.1</version>
-    <name>bybit</name>
-    <description>bybit</description>
+<!--    <version>0.0.1</version>-->
+<!--    <name>bybit</name>-->
+<!--    <description>bybit</description>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,7 +29,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-            <version>${spring.cloud.version}</version>
         </dependency>
     </dependencies>
 

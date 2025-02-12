@@ -5,34 +5,37 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.scanner</groupId>
-        <artifactId>scanner</artifactId>
-        <version>${revision}</version>
+        <artifactId>scanner-parent</artifactId>
+        <version>1.0.0</version>
     </parent>
 
     <groupId>org.configServer</groupId>
     <artifactId>configServer</artifactId>
-    <version>0.0.1</version>
-    <name>configServer</name>
-    <description>configServer</description>
 
-<dependencies>
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-config-server</artifactId>
-        <version>${spring.cloud.server.version}</version>
-    </dependency>
-</dependencies>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>org.scanner.configServer.ConfigServerApplication</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+    </dependencies>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <mainClass>org.scanner.configServer.ConfigServerApplication</mainClass>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>
