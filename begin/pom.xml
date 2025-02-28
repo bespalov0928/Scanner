@@ -9,26 +9,28 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>org.configServer</groupId>
-    <artifactId>configServer</artifactId>
+    <groupId>org.begin</groupId>
+    <artifactId>Begin</artifactId>
+    <version>1.0.0</version>
 
-    <!--    <profiles>-->
-    <!--        <profile>-->
-    <!--            <id>native</id>-->
-    <!--            <activation>-->
-    <!--                <activeByDefault>true</activeByDefault>-->
-    <!--            </activation>-->
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
@@ -38,7 +40,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>org.scanner.configServer.ConfigServerApplication</mainClass>
+                    <mainClass>org.scanner.begin.BeginApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -63,6 +65,5 @@
 
         </plugins>
     </build>
-    <!--        </profile>-->
-    <!--    </profiles>-->
+
 </project>

@@ -1,0 +1,12 @@
+sping:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+task:
+  initial:
+    delay:
+      millis: 1000
+  fixed:
+    delay:
+      millis: 10000

@@ -32,10 +32,11 @@
 <!--                <maxFileSize>1MB</maxFileSize>-->
 <!--            </timeBasedFileNamingAndTriggeringPolicy>-->
 <!--        </rollingPolicy>-->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>bybit/logs/archived/RollingFile_%d{dd.MM.yyyy}.log</fileNamePattern>
-                <maxFileSize>100MB</maxFileSize>
-        </rollingPolicy>
+
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>bybit/logs/archived/RollingFile_%d{dd.MM.yyyy}.log</fileNamePattern>-->
+<!--                <maxFileSize>100MB</maxFileSize>-->
+<!--        </rollingPolicy>-->
 
     </appender>
     <!-- LOGGER -->

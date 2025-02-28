@@ -8,3 +8,6 @@ spring:
       server:
         native:
           search-locations: classpath:/configurations
+  profiles:
+    active:
+      - native

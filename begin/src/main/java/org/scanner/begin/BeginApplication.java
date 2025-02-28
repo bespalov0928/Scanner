@@ -1,4 +1,4 @@
-package org.scanner.bybit;
+package org.scanner.begin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class BybitApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(BybitApplication.class, args);
-	}
-
+public class BeginApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(BeginApplication.class, args);
+    }
 }

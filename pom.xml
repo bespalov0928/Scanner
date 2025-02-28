@@ -15,12 +15,23 @@
     <artifactId>scanner-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-<!--    <name>scanner</name>-->
+    <!--    <name>scanner</name>-->
 
+
+    <!--    <profiles>-->
+    <!--        <profile>-->
+    <!--            <id>native</id>-->
+    <!--            <activation>-->
+    <!--                <activeByDefault>true</activeByDefault>-->
+    <!--            </activation>-->
     <modules>
         <module>bybit</module>
         <module>configServer</module>
+        <module>eurekaServer</module>
+        <module>Begin</module>
     </modules>
+    <!--        </profile>-->
+    <!--    </profiles>-->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
