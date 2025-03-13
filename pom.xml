@@ -29,6 +29,7 @@
         <module>configServer</module>
         <module>eurekaServer</module>
         <module>Begin</module>
+        <module>reports</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->
