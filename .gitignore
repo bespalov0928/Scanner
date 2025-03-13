@@ -4,6 +4,12 @@
 /bybit/logs/
 /bybit/bybit.iml
 /bybit/target/
+/begin/target/
+/reports/target/
+
+/eurekaServer/target/
+/bybit/.gitignore
 
 /configServer/target/
 /configServer.iml
+

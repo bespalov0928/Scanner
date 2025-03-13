@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@spb:1521/XEPDB1
+    username: rep
+    password: rep
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 8
+      data-source-properties:
+        oracle:
+          jdbc:
+            defaultConnectionValidation: local

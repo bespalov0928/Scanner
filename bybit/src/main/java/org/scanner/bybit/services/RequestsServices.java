@@ -15,7 +15,6 @@ import java.util.List;
 
 @Slf4j
 @Service
-@EnableScheduling
 public class RequestsServices {
     private final JdbcTemplate jdbcTemplate;
 
@@ -23,7 +22,6 @@ public class RequestsServices {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(fixedDelay = 10000)// Отправлять запрос каждые 10 секунд
     public void runBybit() {
         var client = new OkHttpClient().newBuilder().build();
         Request request = new Request.Builder()

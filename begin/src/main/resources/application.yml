@@ -1,0 +1,18 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: begin
+  config:
+    import: optional:configserver:http://localhost:8888
+##  cloud:
+##    loadbalancer:
+##      ribbon:
+##        enabled: false
+#task:
+#  initial:
+#    delay:
+#      millis: 1000
+#  fixed:
+#    delay:
+#      millis: 10000

@@ -1,28 +1,71 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                            http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.8</version>
-        <relativePath/>
-    </parent>
+    <!--    <parent>-->
+    <!--        <groupId>org.springframework.boot</groupId>-->
+    <!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+    <!--        <version>3.4.0</version>-->
+    <!--        <relativePath/>-->
+    <!--    </parent>-->
 
     <groupId>org.scanner</groupId>
-    <artifactId>scanner</artifactId>
-    <version>${revision}</version>
+    <artifactId>scanner-parent</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>scanner</name>
+    <!--    <name>scanner</name>-->
 
+
+    <!--    <profiles>-->
+    <!--        <profile>-->
+    <!--            <id>native</id>-->
+    <!--            <activation>-->
+    <!--                <activeByDefault>true</activeByDefault>-->
+    <!--            </activation>-->
     <modules>
         <module>bybit</module>
         <module>configServer</module>
+        <module>eurekaServer</module>
+        <module>Begin</module>
+        <module>reports</module>
     </modules>
+    <!--        </profile>-->
+    <!--    </profiles>-->
 
     <properties>
-        <revision>0.0.1</revision>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-boot.version>3.4.0</spring-boot.version>
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
+        <!--        <spring.cloud.client.version>4.2.0</spring.cloud.client.version>-->
+        <!--        <spring.cloud.server.version>4.2.0</spring.cloud.server.version>-->
+        <!--        <java.version>17</java.version>-->
+        <revision>24.1.1-SNAPSHOT</revision>
+        <okhttp3.version>4.12.0</okhttp3.version>
+
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -31,13 +74,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-         <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--      <version>2.5.0</version>-->
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -51,8 +88,20 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.12.0</version>
+            <version>${okhttp3.version}</version>
         </dependency>
     </dependencies>
 
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--                <version>3.12.1</version>-->
+    <!--                <configuration>-->
+    <!--                    <parameters>true</parameters>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
 </project>
