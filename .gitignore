@@ -1,15 +1,26 @@
 /.idea/
 
-/bybit/src/main/java/org/scanner/bybit/repository/TestConnect.java
-/bybit/logs/
+/configServer.iml
+/configServer/target//configServer.iml
 /bybit/bybit.iml
+
+/bybit/src/main/java/org/scanner/bybit/repository/TestConnect.java
+/core/src/main/java/org/scanner/Test.java
+/exchange/src/main/java/org/scanner/exchange/Test.java
+
+
+/bybit/logs/
+
 /bybit/target/
 /begin/target/
 /reports/target/
-
-/eurekaServer/target/
-/bybit/.gitignore
-
 /configServer/target/
-/configServer.iml
+/core/target/
+/eurekaServer/target/
+/eurekaServer/target/
+/exchange/target/
+/exchangeBybit/target/
+/exchangeOkx/target/
+
+/bybit/.gitignore
 

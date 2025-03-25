@@ -30,6 +30,10 @@
         <module>eurekaServer</module>
         <module>Begin</module>
         <module>reports</module>
+        <module>exchangeOkx</module>
+        <module>exchange</module>
+        <module>core</module>
+        <module>exchangeBybit</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->
