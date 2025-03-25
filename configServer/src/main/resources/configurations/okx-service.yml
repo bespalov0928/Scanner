@@ -1,0 +1,35 @@
+spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@spb:1521/XEPDB1
+#    username: rep
+#    password: rep
+#    hikari:
+#      maximum-pool-size: 5
+#      minimum-idle: 4
+#      data-source-properties:
+#        oracle:
+#          jdbc:
+#            defaultConnectionValidation: local
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  main:
+    banner-mode: off
+task:
+  initial:
+    delay:
+      millis: 1000
+  fixed:
+    delay:
+      millis: 10000
+dwh:
+  name: okx
+#  url: https://www.okx.com/api/v5/market/index-tickers?instId=BTC-USDT
+  url: https://www.okx.com/api/v5/market/index-tickers?instId=%s-%s
+  nameLoader: org.scanner.exchange.loader.OkxLoader
+
+#logging:
+#  level.org.springframework=ERROR
+#  level.org.example.bybit=INFO

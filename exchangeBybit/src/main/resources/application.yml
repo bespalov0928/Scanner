@@ -1,0 +1,11 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: bybit-service
+  config:
+    import: optional:configserver:http://localhost:8888
+#dwh:
+#  name: bybit
+#  url: https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT
+#  nameLoader: org.scanner.exchange.loader.BybitLoader
