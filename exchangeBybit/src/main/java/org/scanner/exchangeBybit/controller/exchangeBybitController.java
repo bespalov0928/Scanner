@@ -13,9 +13,15 @@ public class exchangeBybitController {
 
     private final exchangeBybitServices services;
 
-    @GetMapping("/start")
+    @GetMapping("/tickers")
     public Void start() throws URISyntaxException {
-        services.start();
+        services.tickers();
+        return null;
+    }
+
+    @GetMapping("/pairs")
+    public Void pairs() throws URISyntaxException {
+        services.pairs();
         return null;
     }
 }

@@ -44,10 +44,12 @@ public class ExchangeController {
     @PostMapping("/tickers")
     public String tickers(@RequestBody Resp resp) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         services.tickers(resp);
-//        Answ answer = ExchangeServices.runRequest(resp);
-//        JsonNode document = services.processing(resp, answer.getAnswer());
-//        answer.setDocument(document);
-//        services.loader(resp, answer);
         return "tickers";
+    }
+
+    @PostMapping("/pairs")
+    public String pairs(@RequestBody Resp resp) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        services.pairs(resp);
+        return "pairs";
     }
 }

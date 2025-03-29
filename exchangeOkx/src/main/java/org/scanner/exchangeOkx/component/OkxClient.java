@@ -17,25 +17,37 @@ public class OkxClient {
     private String name;
     @Value("${dwh.url}")
     private String url;
-
-//    private final DiscoveryClient discoveryClient;
+    @Value("${dwh.nameLoader}")
+    private String nameLoader;
+    @Value("${dwh.tablePairs}")
+    private String tablePairs;
+    @Value("${dwh.urlPairs}")
+    private String urlPairs;
 
     public OkxClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-//        this.discoveryClient = discoveryClient;
     }
 
-    public void market() throws URISyntaxException {
+    public void tickers() throws URISyntaxException {
         URI uri = new URI("http://exchange/tickers");
 //        String name = "okx";
 //        String url = "https://www.okx.com/api/v5/market/index-tickers?instId=BTC-USDT";
-        String coin1 = "BTC";
-        String coin2 = "USDT";
-        String nameLoader = "org.scanner.exchange.loader.OkxLoader";
+        String coin1 = "";
+        String coin2 = "";
+//        String nameLoader = "org.scanner.exchange.loader.OkxLoader";
         Resp resp = new Resp(name, url, coin1, coin2, nameLoader);
 
         var rsl = restTemplate.postForLocation(uri, resp);
 //        System.out.println("http://exchange/tickers");
 //        System.out.println("rsl: " + rsl);
+    }
+
+    public void pairs() throws URISyntaxException {
+        URI uri = new URI("http://exchange/pairs");
+        String coin1 = "";
+        String coin2 = "";
+//        String nameLoader = "org.scanner.exchange.loader.BybitLoader";
+        Resp resp = new Resp(tablePairs, urlPairs, coin1, coin2, nameLoader);
+        var rsl = restTemplate.postForLocation(uri, resp);
     }
 }

@@ -35,7 +35,12 @@ public class exchangeOkxServices {
 //        }
     }
 
-    public void start() throws URISyntaxException {
-        okxClient.market();
+    public void tickers() throws URISyntaxException {
+        okxClient.tickers();
     }
+
+    public void pairs() throws URISyntaxException {
+        okxClient.pairs();
+    }
+
 }

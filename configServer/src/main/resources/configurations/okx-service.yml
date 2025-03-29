@@ -27,8 +27,11 @@ task:
 dwh:
   name: okx
 #  url: https://www.okx.com/api/v5/market/index-tickers?instId=BTC-USDT
-  url: https://www.okx.com/api/v5/market/index-tickers?instId=%s-%s
+#  url: https://www.okx.com/api/v5/market/index-tickers?instId=%s-%s
+  url: https://www.okx.com/api/v5/market/tickers?instType=SPOT
   nameLoader: org.scanner.exchange.loader.OkxLoader
+  tablePairs: OKX_PAIRS
+  urlPairs: https://www.okx.com/api/v5/market/tickers?instType=SPOT
 
 #logging:
 #  level.org.springframework=ERROR

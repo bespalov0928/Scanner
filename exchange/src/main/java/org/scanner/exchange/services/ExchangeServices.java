@@ -5,18 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.scanner.core.dto.Pairs;
 import org.scanner.exchange.dto.Answ;
-import org.scanner.exchange.dto.NodeLoader;
 import org.scanner.core.dto.Resp;
 import org.scanner.exchange.loader.Loader;
-import org.scanner.exchange.loader.OkxLoader;
-import org.scanner.exchange.loader.BybitLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,24 +30,6 @@ public class ExchangeServices {
 //        return (T) Class.forName(className).getConstructor(JdbcTemplate.class, NodeLoader.class).newInstance(args);
 //        Class<?> loader = Class.forName(className);
         return (Loader) Class.forName(className).getConstructor(JdbcTemplate.class).newInstance(args);
-    }
-
-    public void tickers(Resp resp) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        String urlBegin = resp.getUrl();
-        for (Pairs pair: Pairs.values()){
-            String coin1 = pair.toString().split("_")[0];
-            String coin2 = pair.toString().split("_")[1];
-            String url = urlBegin;
-            url = String.format(url, coin1, coin2);
-            resp.setUrl(url);
-            resp.setCoin1(coin1);
-            resp.setCoin2(coin2);
-            Answ answer = runRequest(resp);
-            JsonNode document = processing(resp, answer.getAnswer());
-            answer.setDocument(document);
-            loader(resp, answer);
-            System.out.println(pair);
-        }
     }
 
     public static Answ runRequest(Resp resp) {
@@ -80,7 +58,31 @@ public class ExchangeServices {
         return answer;
     }
 
-    public JsonNode processing(Resp respons, String answer) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
+    public void tickers(Resp resp) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        Answ answer = runRequest(resp);
+        List<JsonNode> documents = processingList(resp, answer.getAnswer());
+        answer.setDocuments(documents);
+        loader(resp, answer);
+
+//        String urlBegin = resp.getUrl();
+//        for (Pairs pair: Pairs.values()){
+//            String coin1 = pair.toString().split("_")[0];
+//            String coin2 = pair.toString().split("_")[1];
+//            String url = urlBegin;
+//            url = String.format(url, coin1, coin2);
+//            resp.setUrl(url);
+//            resp.setCoin1(coin1);
+//            resp.setCoin2(coin2);
+//            Answ answer = runRequest(resp);
+//            JsonNode document = processing(resp, answer.getAnswer());
+//            answer.setDocument(document);
+//            loader(resp, answer);
+//            System.out.println(pair);
+//        }
+    }
+
+    private JsonNode processing(Resp respons, String answer) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         JsonNode document = null;
         String className = respons.getNameLoader();
         Loader loader = newLoader(className, this.jdbcTemplate);
@@ -94,9 +96,38 @@ public class ExchangeServices {
         return  document;
     }
 
-    public void loader(Resp respons, Answ answer) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private void loader(Resp respons, Answ answer) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String className = respons.getNameLoader();
         Loader loader = newLoader(className, this.jdbcTemplate);
         loader.load(respons, answer);
     }
+
+
+    public void pairs(Resp resp) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        Answ answer = runRequest(resp);
+        List<JsonNode> documents = processingList(resp, answer.getAnswer());
+        answer.setDocuments(documents);
+        loaderPairs(resp, answer);
+    }
+
+    private List<JsonNode> processingList(Resp respons, String answer) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        List<JsonNode> documents = null;
+        String className = respons.getNameLoader();
+        Loader loader = newLoader(className, this.jdbcTemplate);
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode message = objectMapper.readValue(answer, JsonNode.class);
+            documents = loader.documents(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return  documents;
+    }
+
+    private void loaderPairs(Resp respons, Answ answer) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        String className = respons.getNameLoader();
+        Loader loader = newLoader(className, this.jdbcTemplate);
+        loader.loadPairs(respons, answer);
+    }
+
 }

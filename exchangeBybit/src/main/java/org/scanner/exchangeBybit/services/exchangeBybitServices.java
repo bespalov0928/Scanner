@@ -12,7 +12,11 @@ public class exchangeBybitServices {
     @Autowired
     Client client;
 
-    public void start() throws URISyntaxException {
-        client.market();
+    public void tickers() throws URISyntaxException {
+        client.tickers();
+    }
+
+    public void pairs() throws URISyntaxException {
+        client.pairs();
     }
 }
