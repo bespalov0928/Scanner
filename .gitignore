@@ -21,6 +21,7 @@
 /exchange/target/
 /exchangeBybit/target/
 /exchangeOkx/target/
+/exchangeBitget/target/
 
 /bybit/.gitignore
 
