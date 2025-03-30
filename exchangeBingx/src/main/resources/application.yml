@@ -1,0 +1,7 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: bingx-service
+  config:
+    import: optional:configserver:http://localhost:8888

@@ -35,6 +35,7 @@
         <module>core</module>
         <module>exchangeBybit</module>
         <module>exchangeBitget</module>
+        <module>exchangeBingx</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->
