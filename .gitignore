@@ -23,6 +23,7 @@
 /exchangeOkx/target/
 /exchangeBitget/target/
 /exchangeBingx/target/
+/adminServer/target/
 
 /bybit/.gitignore
 

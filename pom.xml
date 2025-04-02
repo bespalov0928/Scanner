@@ -36,6 +36,8 @@
         <module>exchangeBybit</module>
         <module>exchangeBitget</module>
         <module>exchangeBingx</module>
+        <module>api-gateway</module>
+        <module>adminServer</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->
