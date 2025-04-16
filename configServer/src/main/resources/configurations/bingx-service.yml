@@ -1,0 +1,30 @@
+spring:
+  #  datasource:
+  #    driver-class-name: oracle.jdbc.OracleDriver
+  #    url: jdbc:oracle:thin:@spb:1521/XEPDB1
+  #    username: rep
+  #    password: rep
+  #    hikari:
+  #      maximum-pool-size: 5
+  #      minimum-idle: 4
+  #      data-source-properties:
+  #        oracle:
+  #          jdbc:
+  #            defaultConnectionValidation: local
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  main:
+    banner-mode: off
+task:
+  initial:
+    delay:
+      millis: 1000
+  fixed:
+    delay:
+      millis: 10000
+dwh:
+  name: bingx
+  url: https://open-api.bingx.com/openApi/spot/v1/ticker/price
+  nameLoader: org.scanner.exchange.loader.BingxLoader

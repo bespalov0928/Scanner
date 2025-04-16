@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+  main:
+    banner-mode: off
+task:
+  initial:
+    delay:
+      millis: 1000
+  fixed:
+    delay:
+      millis: 10000
+dwh:
+  name: bitget
+  url: https://api.bitget.com/api/v2/spot/market/tickers
+  nameLoader: org.scanner.exchange.loader.BitgetLoader

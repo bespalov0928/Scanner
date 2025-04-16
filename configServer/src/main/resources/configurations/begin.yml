@@ -9,4 +9,4 @@ task:
       millis: 1000
   fixed:
     delay:
-      millis: 100000
+      millis: 10000
