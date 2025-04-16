@@ -17,13 +17,14 @@
 /configServer/target/
 /core/target/
 /eurekaServer/target/
-/eurekaServer/target/
 /exchange/target/
 /exchangeBybit/target/
 /exchangeOkx/target/
 /exchangeBitget/target/
 /exchangeBingx/target/
 /adminServer/target/
+/requestBybit/target/
+/requestOkx/target/
 
 /bybit/.gitignore
 

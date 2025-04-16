@@ -36,8 +36,11 @@
         <module>exchangeBybit</module>
         <module>exchangeBitget</module>
         <module>exchangeBingx</module>
-        <module>api-gateway</module>
+<!--        <module>api-gateway</module>-->
         <module>adminServer</module>
+        <module>exchangeMemory</module>
+        <module>requestBybit</module>
+        <module>requestOkx</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->
