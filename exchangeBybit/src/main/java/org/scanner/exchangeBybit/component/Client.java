@@ -35,8 +35,8 @@ public class Client {
 //        String nameLoader = "org.scanner.exchange.loader.BybitLoader";
         Resp resp = new Resp(name, url, coin1, coin2, nameLoader);
 
-        var rsl = restTemplate.postForLocation(uri, resp);
-//        System.out.println("http://exchange/tickers");
+//        var rsl = restTemplate.postForLocation(uri, resp);
+        System.out.println("http://exchange/tickers");
 //        System.out.println("rsl: " + rsl);
     }
 

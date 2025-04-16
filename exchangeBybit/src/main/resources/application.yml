@@ -14,17 +14,36 @@ spring:
 #          service-base-url: http://localhost:8084/tickers
           service-host-type: ip
         url: http://localhost:8087
-  management:
-    health:
-      livenessstate:
-        enaled: true
-      readinessstate:
-        enabled: true
-    endpoints:
-      web:
-        exposure:
-          include: '*'
-
+#  management:
+#    health:
+#      livenessstate:
+#        enaled: true
+#      readinessstate:
+#        enabled: true
+#    endpoints:
+#      web:
+#        exposure:
+#          include: '*'
+management:
+#  health:
+#     livenessstate:
+#        enaled: true
+#     readinessstate:
+#        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+    metrics:
+      tags:
+        application: sanbox
+      export:
+        prometheus:
+          enabled: true
+    prometheus:
+      enabled=true:
 #dwh:
 #  name: bybit
 #  url: https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT
