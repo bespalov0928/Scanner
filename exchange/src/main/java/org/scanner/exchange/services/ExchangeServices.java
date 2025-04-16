@@ -129,5 +129,4 @@ public class ExchangeServices {
         Loader loader = newLoader(className, this.jdbcTemplate);
         loader.loadPairs(respons, answer);
     }
-
 }
