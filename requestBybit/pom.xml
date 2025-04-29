@@ -39,6 +39,16 @@
         </dependency>
 <!--    -Мониторинг сервисов с Micrometer и VictoriaMetrics&ndash;&gt;-->
 
+        <dependency>
+            <groupId>com.github.loki4j</groupId>
+            <artifactId>loki-logback-appender</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.1.12</version>
+        </dependency>
     </dependencies>
 
 </project>
