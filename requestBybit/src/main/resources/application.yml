@@ -3,3 +3,12 @@ server:
 spring:
   application:
     name: bybit-request
+management:
+#  + Мониторинг сервисов с Micrometer и VictoriaMetrics
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+#  - Мониторинг сервисов с Micrometer и VictoriaMetrics
