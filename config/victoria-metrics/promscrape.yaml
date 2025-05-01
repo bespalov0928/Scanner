@@ -2,10 +2,10 @@ scrape_configs:
   - job_name: request-bybit
     static_configs:
       - targets:
-          - http://192.168.0.186:8084/actuator/prometheus
+          - http://192.168.0.147:8084/actuator/prometheus
         labels:
           application: request-bybit
   - job_name: request-okx
     static_configs:
       - targets:
-          - http://192.168.0.186:8083/actuator/prometheus
+          - http://192.168.0.147:8083/actuator/prometheus
