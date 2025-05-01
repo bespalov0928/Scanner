@@ -9,5 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class BeginApplication {
     public static void main(String[] args) {
         SpringApplication.run(BeginApplication.class, args);
+        System.out.println("http://localhost:8082");
     }
 }
