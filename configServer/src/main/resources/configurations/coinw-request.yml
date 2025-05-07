@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.coinw.com/api/v1/public?command=returnTicker
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader
