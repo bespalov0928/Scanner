@@ -1,7 +1,7 @@
 package org.scanner.requestOkx.controller;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import org.scanner.core.dto.Ticket;
+import org.scanner.core.dto.TicketBasic;
 import org.scanner.requestOkx.services.requestOkxServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +21,9 @@ public class requestOkxController {
     MeterRegistry meterRegistry;
 
     @GetMapping("/tickers")
-    public List<Ticket> getTickets() throws IOException {
+    public List<TicketBasic> getTickets() throws IOException {
         this.meterRegistry.counter("tickers_okx_count", List.of()).increment();
-        List<Ticket> rsl = services.getRequest();
+        List<TicketBasic> rsl = services.getRequest();
         return rsl;
     }
 
