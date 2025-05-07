@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://open-api.bingx.com/openApi/spot/v1/ticker/price
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader
