@@ -2,6 +2,8 @@ package org.scanner.begin.component;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.scanner.begin.dto.DeltaBybit;
+import org.scanner.begin.dto.PriceAll;
 import org.scanner.core.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -18,7 +20,9 @@ import java.util.stream.Collectors;
 public class BybitClient {
     private final RestTemplate restTemplate;
     //    @Autowired
-    Map<String, Ticket> tickets = new HashMap<String, Ticket>();
+    Map<String, Ticket> ticketsMap = new HashMap<>();
+    HashMap<String, PriceAll> priceAllMap = new HashMap<>();
+    HashMap<String, DeltaBybit> deltaBybitMap = new HashMap<>();
 
     public BybitClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -30,30 +34,159 @@ public class BybitClient {
     }
 
     public void getTicketsBybit() {
-        List<LinkedHashMap> ticketsBybit = restTemplate.getForObject("http://bybit-request/tickers", List.class);
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://bybit-request/tickers", List.class);
 
-        for (LinkedHashMap ticket : ticketsBybit) {
-            Ticket ticketKey = tickets.get(ticket.get("symbol"));
-            if (ticketKey == null) {
-                Ticket newTicket = new Ticket();
-                newTicket.setSymbol((String) ticket.get("symbol"));
-                newTicket.setPriceBybit((Double) ticket.get("priceBybit"));
-                tickets.put((String) ticket.get("symbol"), newTicket);
-            } else ticketKey.setPriceBybit((Double) ticket.get("priceBybit"));
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceBybit((Double) ticket.get("price"));
+
+//        for (LinkedHashMap ticket : ticketsBybit) {
+//            Ticket ticketKey = tickets.get(ticket.get("symbol"));
+//            if (ticketKey == null) {
+//                Ticket newTicket = new Ticket();
+//                newTicket.setSymbol((String) ticket.get("symbol"));
+//                newTicket.setPriceBybit((Double) ticket.get("priceBybit"));
+//                tickets.put((String) ticket.get("symbol"), newTicket);
+//            } else ticketKey.setPriceBybit((Double) ticket.get("priceBybit"));
         }
     }
 
     public void getTicketsOkx() {
-        List<LinkedHashMap> ticketsList = restTemplate.getForObject("http://okx-request/tickers", List.class);
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://okx-request/tickers", List.class);
 
-        for (LinkedHashMap ticket : ticketsList) {
-            Ticket ticketKey = tickets.get(ticket.get("symbol"));
-            if (ticketKey == null) {
-                Ticket newTicket = new Ticket();
-                newTicket.setSymbol((String) ticket.get("symbol"));
-                newTicket.setPriceOkx((Double) ticket.get("priceOkx"));
-                tickets.put((String) ticket.get("symbol"), newTicket);
-            } else ticketKey.setPriceOkx((Double) ticket.get("priceOkx"));
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceOkx((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceOkx((Double) ticket.get("price"));
+
+//        for (LinkedHashMap ticket : ticketsList) {
+//            Ticket ticketKey = tickets.get(ticket.get("symbol"));
+//            if (ticketKey == null) {
+//                Ticket newTicket = new Ticket();
+//                newTicket.setSymbol((String) ticket.get("symbol"));
+//                newTicket.setPriceOkx((Double) ticket.get("priceOkx"));
+//                tickets.put((String) ticket.get("symbol"), newTicket);
+//            } else ticketKey.setPriceOkx((Double) ticket.get("priceOkx"));
+        }
+    }
+
+    public void getTicketsBitget(){
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://bitget-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceOkx((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceBitget((Double) ticket.get("price"));
+        }
+    }
+
+    public void getTicketsBingx() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://bingx-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null){
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            //} else priceAllKey.setPriceBingx((Double) ticket.get("price"));
+            priceAllKey.setPriceBingx((Double) ticket.get("price"));
+        }
+
+    }
+
+    public void getTicketsKucoin() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://kucoin-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null) {
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+//            } else priceAllKey.setPriceKucoin((Double) ticket.get("price"));
+            priceAllKey.setPriceKucoin((Double) ticket.get("price"));
+        }
+    }
+
+    public void getTicketsHuobi() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://huobi-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null) {
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+//            } else priceAllKey.setPriceHuobi((Double) ticket.get("price"));
+            priceAllKey.setPriceHuobi((Double) ticket.get("price"));
+        }
+    }
+
+    public void getTicketsMexc() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://mexc-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null) {
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+//            } else priceAllKey.setPriceMexc((Double) ticket.get("price"));
+            priceAllKey.setPriceMexc((Double) ticket.get("price"));
+        }
+    }
+
+    public void getTicketsCoinW() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://coinw-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null) {
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+//            } else priceAllKey.setPriceCoinW((Double) ticket.get("price"));
+            priceAllKey.setPriceCoinW((Double) ticket.get("price"));
+        }
+    }
+
+    public void getTicketsGate() {
+        List<LinkedHashMap> tickets = restTemplate.getForObject("http://gate-request/tickers", List.class);
+
+        for (LinkedHashMap ticket : tickets) {
+            PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
+            if (priceAllKey == null) continue;
+//            if (priceAllKey == null) {
+//                PriceAll newPriceAll = new PriceAll();
+//                newPriceAll.setSymbol((String) ticket.get("symbol"));
+//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+//            } else priceAllKey.setPriceGate((Double) ticket.get("price"));
+            priceAllKey.setPriceGate((Double) ticket.get("price"));
         }
     }
 
@@ -67,8 +200,7 @@ public class BybitClient {
             }
         };
 
-
-        tickets = tickets.entrySet().stream().sorted(new Comparator<Map.Entry<String, Ticket>>() {
+        ticketsMap = ticketsMap.entrySet().stream().sorted(new Comparator<Map.Entry<String, Ticket>>() {
             @Override
             public int compare(Map.Entry<String, Ticket> o1, Map.Entry<String, Ticket> o2) {
                 return o2.getValue().getDeltaBybitOkx().compareTo(o1.getValue().getDeltaBybitOkx());
@@ -78,11 +210,11 @@ public class BybitClient {
                 Map.Entry::getValue,
                 (oldValue, newValue) -> oldValue,
                 LinkedHashMap::new));
-        System.out.println(tickets.size());
+        System.out.println(ticketsMap.size());
     }
 
     public void filterBybitOkx() {
-        tickets = tickets.entrySet().stream().filter(new Predicate<Map.Entry<String, Ticket>>() {
+        ticketsMap = ticketsMap.entrySet().stream().filter(new Predicate<Map.Entry<String, Ticket>>() {
             @Override
             public boolean test(Map.Entry<String, Ticket> stringTicketEntry) {
                 return (stringTicketEntry.getValue().getDeltaBybitOkx() <= 0) ? false : true;
@@ -92,7 +224,7 @@ public class BybitClient {
                 Map.Entry::getValue,
                 (oldValue, newValue) -> oldValue,
                 LinkedHashMap::new));
-        System.out.println(tickets.size());
+        System.out.println(ticketsMap.size());
     }
 
 }
