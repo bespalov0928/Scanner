@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.bitget.com/api/v2/spot/market/tickers
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader
