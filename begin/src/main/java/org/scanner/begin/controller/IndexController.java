@@ -23,7 +23,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("tickets", bybitClient.getTickets().values());
+        model.addAttribute("tickets", bybitClient.getPriceAllMap().values());
         return "index";
     }
 
@@ -32,4 +32,5 @@ public class IndexController {
         beginServices.getTickets();
         return "redirect:/index";
     }
+
 }

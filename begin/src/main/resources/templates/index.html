@@ -29,18 +29,45 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-
+<!--<div class="container p-3">-->
+<!--    <div class="row">-->
+<!--        <div class="col-3">-->
+<!--            <div class="d-flex flex-row-reverse p-1">-->
+<!--                <ul class="nav">-->
+<!--                    <li class="nav-item">-->
+<!--                        <form th:action="@{/request}" method="GET" enctype="multipart/form-data">-->
+<!--                            <button type="submit" class="btn btn-primary">Выполнить запрос</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <div class="container p-3">
     <div class="table-responsive">
         <!--        <table class="table table-bordered table-hover">-->
         <form th:action="@{/update}" method="post" enctype="multipart/form-data" th:object="${tickets}">
+            <button type="submit" class="btn btn-primary">Обновить</button>
+
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Пара</th>
-                    <th>Bybit</th>
+<!--                    <th>Bybit</th>-->
+                    <th>
+<!--                        <li class="nav-item">-->
+                            <a class="nav-link" th:href="@{/bybit/form}">Bybit</a>
+<!--                        </li>-->
+                    </th>
                     <th>Okx</th>
-                    <th>DeltaBybitOkx</th>
+                    <th>Bitget</th>
+                    <th>Bingx</th>
+                    <th>Kucoin</th>
+                    <th>Huobi</th>
+                    <th>Mexc</th>
+                    <th>CoinW</th>
+                    <th>Gate</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,11 +75,16 @@
                     <td><a th:text="${tk.symbol}"/></td>
                     <td><a th:text="${tk.priceBybit}"/></td>
                     <td><a th:text="${tk.priceOkx}"/></td>
-                    <td><a th:text="${tk.DeltaBybitOkx}"/></td>
+                    <td><a th:text="${tk.priceBitget}"/></td>
+                    <td><a th:text="${tk.priceBingx}"/></td>
+                    <td><a th:text="${tk.priceKucoin}"/></td>
+                    <td><a th:text="${tk.priceHuobi}"/></td>
+                    <td><a th:text="${tk.priceMexc}"/></td>
+                    <td><a th:text="${tk.priceCoinW}"/></td>
+                    <td><a th:text="${tk.priceGate}"/></td>
                 </tr>
                 </tbody>
             </table>
-            <button type="submit" class="btn btn-primary">Обновить</button>
         </form>
     </div>
 </div>
