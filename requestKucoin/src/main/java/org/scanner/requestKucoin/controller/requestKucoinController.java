@@ -1,0 +1,26 @@
+package org.scanner.requestKucoin.controller;
+
+import org.scanner.core.dto.TicketBasic;
+import org.scanner.requestKucoin.services.requestKucoinServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.List;
+
+@RestController
+public class requestKucoinController {
+    @Autowired
+    requestKucoinServices services;
+
+//    @Autowired
+//    MeterRegistry meterRegistry;
+
+    @GetMapping("/tickers")
+    public List<TicketBasic> getTickets() throws IOException {
+//        this.meterRegistry.counter("tickers_bitget_count", List.of()).increment();
+        List<TicketBasic> rsl = services.getRequest();
+        return rsl;
+    }
+}
