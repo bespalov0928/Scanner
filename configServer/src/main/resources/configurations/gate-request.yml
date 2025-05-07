@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.gateio.ws/api/v4/spot/tickers
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader
