@@ -6,8 +6,12 @@ import org.scanner.begin.dto.DeltaBybit;
 import org.scanner.begin.dto.PriceAll;
 import org.scanner.core.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -34,6 +38,10 @@ public class BybitClient {
     }
 
     public void getTicketsBybit() {
+        Status status = checkStatusService("http://bybit-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://bybit-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -57,6 +65,10 @@ public class BybitClient {
     }
 
     public void getTicketsOkx() {
+        Status status = checkStatusService("http://okx-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://okx-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -80,6 +92,10 @@ public class BybitClient {
     }
 
     public void getTicketsBitget(){
+        Status status = checkStatusService("http://bitget-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://bitget-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -94,6 +110,10 @@ public class BybitClient {
     }
 
     public void getTicketsBingx() {
+        Status status = checkStatusService("http://bingx-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://bingx-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -111,6 +131,10 @@ public class BybitClient {
     }
 
     public void getTicketsKucoin() {
+        Status status = checkStatusService("http://kucoin-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://kucoin-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -127,6 +151,10 @@ public class BybitClient {
     }
 
     public void getTicketsHuobi() {
+        Status status = checkStatusService("http://huobi-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://huobi-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -143,6 +171,10 @@ public class BybitClient {
     }
 
     public void getTicketsMexc() {
+        Status status = checkStatusService("http://mexc-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://mexc-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -159,6 +191,10 @@ public class BybitClient {
     }
 
     public void getTicketsCoinW() {
+        Status status = checkStatusService("http://coinw-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://coinw-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -175,6 +211,10 @@ public class BybitClient {
     }
 
     public void getTicketsGate() {
+        Status status = checkStatusService("http://gate-request/health");
+        if (!status.equals(Status.UP)){
+            return;
+        }
         List<LinkedHashMap> tickets = restTemplate.getForObject("http://gate-request/tickers", List.class);
 
         for (LinkedHashMap ticket : tickets) {
@@ -225,6 +265,23 @@ public class BybitClient {
                 (oldValue, newValue) -> oldValue,
                 LinkedHashMap::new));
         System.out.println(ticketsMap.size());
+    }
+
+    public Status checkStatusService(String urlHealth){
+        Map<String, String> status = null;
+        Status statusCod = Status.OUT_OF_SERVICE;
+        try {
+            status = (Map<String, String>) restTemplate.getForObject(urlHealth, Object.class);
+            String cod =  status.get("status");
+            statusCod = new Status(cod);
+        }catch (RestClientException restClientException){
+            restClientException.printStackTrace();
+        } catch (RuntimeException runtimeException) {
+            System.out.println(runtimeException.getMessage());
+//            runtimeException.printStackTrace();
+        }
+        System.out.println("statusCod: "+statusCod);
+        return statusCod;
     }
 
 }

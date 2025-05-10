@@ -5,15 +5,20 @@ spring:
     name: bingx-request
   config:
     import: optional:configserver:http://localhost:8888
-#management:
-##  + Мониторинг сервисов с Micrometer и VictoriaMetrics
-#  endpoints:
-#    web:
-#      exposure:
-#        include:
-#          - health
-#          - prometheus
-##  - Мониторинг сервисов с Micrometer и VictoriaMetrics
+management:
+
+#  + Мониторинг сервисов с Micrometer и VictoriaMetrics
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  health:
+    probes:
+      enabled: true
+#  - Мониторинг сервисов с Micrometer и VictoriaMetrics
+
 #    metrics:
 #      tags:
 #        application: sanbox

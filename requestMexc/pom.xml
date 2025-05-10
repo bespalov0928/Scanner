@@ -32,6 +32,18 @@
             <version>1.0.0</version>
             <!--            <scope>compile</scope>-->
         </dependency>
+
+        <!--+Мониторинг сервисов с Micrometer и VictoriaMetrics-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!---Мониторинг сервисов с Micrometer и VictoriaMetrics-->
+
     </dependencies>
 
 </project>

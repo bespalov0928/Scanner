@@ -5,15 +5,24 @@ spring:
     name: bybit-request
   config:
     import: optional:configserver:http://localhost:8888
-#management:
-##  + Мониторинг сервисов с Micrometer и VictoriaMetrics
-#  endpoints:
-#    web:
-#      exposure:
-#        include:
-#          - health
-#          - prometheus
+management:
+
+#  + Мониторинг сервисов с Micrometer и VictoriaMetrics
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, metrics
+#  endpoint:
+#    health:
+#      group:
+#        check:
+#          include: "db,readinessState,livenessState"
+#          include: readiness,liveness"
+  health:
+    probes:
+      enabled: true
 ##  - Мониторинг сервисов с Micrometer и VictoriaMetrics
+
 #    metrics:
 #      tags:
 #        application: sanbox
