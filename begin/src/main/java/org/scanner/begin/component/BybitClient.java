@@ -2,8 +2,7 @@ package org.scanner.begin.component;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.scanner.begin.dto.DeltaBybit;
-import org.scanner.begin.dto.PriceAll;
+import org.scanner.begin.dto.*;
 import org.scanner.core.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
@@ -26,15 +25,10 @@ public class BybitClient {
     //    @Autowired
     Map<String, Ticket> ticketsMap = new HashMap<>();
     HashMap<String, PriceAll> priceAllMap = new HashMap<>();
-    HashMap<String, DeltaBybit> deltaBybitMap = new HashMap<>();
+    HashMap<String, Delta> deltaMap = new HashMap<>();
 
     public BybitClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-    }
-
-    public void bybitStart() {
-        restTemplate.getForEntity("http://bybit-service/start", String.class);
-        restTemplate.getForEntity("http://okx-service/start", String.class);
     }
 
     public void getTicketsBybit() {
@@ -52,15 +46,6 @@ public class BybitClient {
                 newPriceAll.setPriceBybit((Double) ticket.get("price"));
                 priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
             } else priceAllKey.setPriceBybit((Double) ticket.get("price"));
-
-//        for (LinkedHashMap ticket : ticketsBybit) {
-//            Ticket ticketKey = tickets.get(ticket.get("symbol"));
-//            if (ticketKey == null) {
-//                Ticket newTicket = new Ticket();
-//                newTicket.setSymbol((String) ticket.get("symbol"));
-//                newTicket.setPriceBybit((Double) ticket.get("priceBybit"));
-//                tickets.put((String) ticket.get("symbol"), newTicket);
-//            } else ticketKey.setPriceBybit((Double) ticket.get("priceBybit"));
         }
     }
 
@@ -79,15 +64,6 @@ public class BybitClient {
                 newPriceAll.setPriceOkx((Double) ticket.get("price"));
                 priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
             } else priceAllKey.setPriceOkx((Double) ticket.get("price"));
-
-//        for (LinkedHashMap ticket : ticketsList) {
-//            Ticket ticketKey = tickets.get(ticket.get("symbol"));
-//            if (ticketKey == null) {
-//                Ticket newTicket = new Ticket();
-//                newTicket.setSymbol((String) ticket.get("symbol"));
-//                newTicket.setPriceOkx((Double) ticket.get("priceOkx"));
-//                tickets.put((String) ticket.get("symbol"), newTicket);
-//            } else ticketKey.setPriceOkx((Double) ticket.get("priceOkx"));
         }
     }
 
@@ -119,13 +95,13 @@ public class BybitClient {
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
             if (priceAllKey == null) continue;
+            priceAllKey.setPriceBingx((Double) ticket.get("price"));
 //            if (priceAllKey == null){
 //                PriceAll newPriceAll = new PriceAll();
 //                newPriceAll.setSymbol((String) ticket.get("symbol"));
 //                newPriceAll.setPriceBybit((Double) ticket.get("price"));
 //                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
             //} else priceAllKey.setPriceBingx((Double) ticket.get("price"));
-            priceAllKey.setPriceBingx((Double) ticket.get("price"));
         }
 
     }
@@ -139,14 +115,14 @@ public class BybitClient {
 
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
-            if (priceAllKey == null) continue;
-//            if (priceAllKey == null) {
-//                PriceAll newPriceAll = new PriceAll();
-//                newPriceAll.setSymbol((String) ticket.get("symbol"));
-//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
-//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
-//            } else priceAllKey.setPriceKucoin((Double) ticket.get("price"));
-            priceAllKey.setPriceKucoin((Double) ticket.get("price"));
+//            if (priceAllKey == null) continue;
+//            priceAllKey.setPriceKucoin((Double) ticket.get("price"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceKucoin((Double) ticket.get("price"));
         }
     }
 
@@ -159,14 +135,14 @@ public class BybitClient {
 
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
-            if (priceAllKey == null) continue;
-//            if (priceAllKey == null) {
-//                PriceAll newPriceAll = new PriceAll();
-//                newPriceAll.setSymbol((String) ticket.get("symbol"));
-//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
-//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
-//            } else priceAllKey.setPriceHuobi((Double) ticket.get("price"));
-            priceAllKey.setPriceHuobi((Double) ticket.get("price"));
+//            if (priceAllKey == null) continue;
+//            priceAllKey.setPriceHuobi((Double) ticket.get("price"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceHuobi((Double) ticket.get("price"));
         }
     }
 
@@ -180,13 +156,13 @@ public class BybitClient {
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
             if (priceAllKey == null) continue;
+            priceAllKey.setPriceMexc((Double) ticket.get("price"));
 //            if (priceAllKey == null) {
 //                PriceAll newPriceAll = new PriceAll();
 //                newPriceAll.setSymbol((String) ticket.get("symbol"));
 //                newPriceAll.setPriceBybit((Double) ticket.get("price"));
 //                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
 //            } else priceAllKey.setPriceMexc((Double) ticket.get("price"));
-            priceAllKey.setPriceMexc((Double) ticket.get("price"));
         }
     }
 
@@ -199,14 +175,14 @@ public class BybitClient {
 
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
-            if (priceAllKey == null) continue;
-//            if (priceAllKey == null) {
-//                PriceAll newPriceAll = new PriceAll();
-//                newPriceAll.setSymbol((String) ticket.get("symbol"));
-//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
-//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
-//            } else priceAllKey.setPriceCoinW((Double) ticket.get("price"));
-            priceAllKey.setPriceCoinW((Double) ticket.get("price"));
+//            if (priceAllKey == null) continue;
+//            priceAllKey.setPriceCoinW((Double) ticket.get("price"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceCoinW((Double) ticket.get("price"));
         }
     }
 
@@ -219,14 +195,14 @@ public class BybitClient {
 
         for (LinkedHashMap ticket : tickets) {
             PriceAll priceAllKey = priceAllMap.get(ticket.get("symbol"));
-            if (priceAllKey == null) continue;
-//            if (priceAllKey == null) {
-//                PriceAll newPriceAll = new PriceAll();
-//                newPriceAll.setSymbol((String) ticket.get("symbol"));
-//                newPriceAll.setPriceBybit((Double) ticket.get("price"));
-//                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
-//            } else priceAllKey.setPriceGate((Double) ticket.get("price"));
-            priceAllKey.setPriceGate((Double) ticket.get("price"));
+//            if (priceAllKey == null) continue;
+//            priceAllKey.setPriceGate((Double) ticket.get("price"));
+            if (priceAllKey == null) {
+                PriceAll newPriceAll = new PriceAll();
+                newPriceAll.setSymbol((String) ticket.get("symbol"));
+                newPriceAll.setPriceBybit((Double) ticket.get("price"));
+                priceAllMap.put((String) ticket.get("symbol"), newPriceAll);
+            } else priceAllKey.setPriceGate((Double) ticket.get("price"));
         }
     }
 
@@ -280,7 +256,9 @@ public class BybitClient {
             System.out.println(runtimeException.getMessage());
 //            runtimeException.printStackTrace();
         }
-        System.out.println("statusCod: "+statusCod);
+        if (statusCod != Status.UP){
+            System.out.println(String.format("status: %s, url: %s", statusCod, urlHealth));
+        }
         return statusCod;
     }
 
