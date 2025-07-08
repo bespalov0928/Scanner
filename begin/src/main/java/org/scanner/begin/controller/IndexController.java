@@ -1,15 +1,20 @@
 package org.scanner.begin.controller;
 
 import lombok.AllArgsConstructor;
-import org.scanner.begin.component.BybitClient;
-import org.scanner.begin.services.BeginServices;
-import org.scanner.core.dto.Ticket;
+import org.scanner.begin.component.RestClient;
+import org.scanner.begin.dto.DeltaDto;
+import org.scanner.begin.dto.IndexDto;
+import org.scanner.begin.services.IndexServices;
+import org.scanner.begin.services.GeneralServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 
 
 @Controller
@@ -17,98 +22,54 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class IndexController {
 
     @Autowired
-    BybitClient bybitClient;
+    RestClient restClient;
+
     @Autowired
-    BeginServices beginServices;
+    IndexServices indexServices;
+
+    @Autowired
+    GeneralServices generalServices;
 
     @GetMapping("/index")
     public String index(Model model) {
-        model.addAttribute("tickets", bybitClient.getPriceAllMap().values());
+        IndexDto indexDto = new IndexDto();
+        indexDto.setСoinPair("");
+        indexDto.setListPrice(new ArrayList<>(restClient.getTicketsPriceMap().values()));
+        model.addAttribute("indexDto", indexDto);
         return "index";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute Ticket ticket) {
-        beginServices.getTickets();
+    @GetMapping("/update/{сoinPair}")
+//    public String update(@ModelAttribute Ticket ticket) {
+    public String update(@PathVariable("сoinPair") String сoinPair) {
+        indexServices.getTickets(сoinPair);
         return "redirect:/index";
     }
 
-    @GetMapping("/process/update")
-    public String Process(Model model) {
-        beginServices.processingDelta("bybit");
-        beginServices.processingDelta("okx");
-        beginServices.processingDelta("bitget");
-        beginServices.processingDelta("bingx");
-        beginServices.processingDelta("kucoin");
-        beginServices.processingDelta("huobi");
-        beginServices.processingDelta("mexc");
-        beginServices.processingDelta("coinw");
-        beginServices.processingDelta("gate");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
+    @PostMapping("/update")
+//    public String update(@ModelAttribute Ticket ticket) {
+    public String updatePost(Model model, @ModelAttribute IndexDto indexDto) {
+        indexServices.getTickets(indexDto.getСoinPair());
+        IndexDto indexDtoNew = new IndexDto();
+        indexDtoNew.setСoinPair(indexDto.getСoinPair());
+        indexDtoNew.setListPrice(new ArrayList<>(restClient.getTicketsPriceMap().values()));
+        model.addAttribute("indexDto", indexDtoNew);
+//        return "redirect:/index";
+        return "index";
     }
 
-
-    @GetMapping("/bybit/form")
-    public String formBybit(Model model) {
-        beginServices.processingDelta("bybit");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
+    @GetMapping("/chainTwoCoin")
+    public String chainTwoCoin() {
+        return "redirect:/chain/update/0";
     }
 
-    @GetMapping("/okx/form")
-    public String formOkx(Model model) {
-        beginServices.processingDelta("okx");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/bitget/form")
-    public String formBitget(Model model) {
-        beginServices.processingDelta("bitget");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/bingx/form")
-    public String formBingx(Model model) {
-        beginServices.processingDelta("bingx");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/kucoin/form")
-    public String formKucoin(Model model) {
-        beginServices.processingDelta("kucoin");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/huobi/form")
-    public String formHuobi(Model model) {
-        beginServices.processingDelta("huobi");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/mexc/form")
-    public String formMexc(Model model) {
-        beginServices.processingDelta("mexc");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/coinw/form")
-    public String formCoinw(Model model) {
-        beginServices.processingDelta("coinw");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
-    }
-
-    @GetMapping("/gate/form")
-    public String formGate(Model model) {
-        beginServices.processingDelta("gate");
-        model.addAttribute("delta", bybitClient.getDeltaMap().values());
-        return "process";
+    @GetMapping("/form/{exchange}")
+    public String formExchange(Model model, @PathVariable("exchange") String exchange) {
+        generalServices.processingDelta(exchange);
+        DeltaDto deltaDto = new DeltaDto();
+        deltaDto.setExchange(exchange);
+        deltaDto.setListDelta(new ArrayList<>(restClient.getDeltaMap().values()));
+        model.addAttribute("deltaDto", deltaDto);
+        return "priceDelta";
     }
 }

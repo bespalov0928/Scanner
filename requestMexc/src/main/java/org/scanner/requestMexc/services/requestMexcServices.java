@@ -73,6 +73,7 @@ public class requestMexcServices {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText().toUpperCase());
             ticker.setPrice(jsonNode.get("lastPrice").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(0.0);
             ticketList.add(ticker);
         }

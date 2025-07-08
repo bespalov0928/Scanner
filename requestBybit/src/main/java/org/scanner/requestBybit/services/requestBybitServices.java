@@ -20,8 +20,9 @@ public class requestBybitServices {
     @Value("${dwh.url}")
     private String url;
 
-    public List<TicketBasic> getRequest() throws IOException {
-        String response = runRequest(this.url);
+    public List<TicketBasic> getRequest(String coinPair) throws IOException {
+        String url = coinPair.equals("_") ? this.url : String.format("%s&symbol=%s", this.url, coinPair);
+        String response = runRequest(url);
         JsonNode jsonNode = processing(response);
         List<JsonNode> jsonList = processingList(jsonNode);
         List<TicketBasic> ticketList = parserJsonList(jsonList);
@@ -71,14 +72,15 @@ public class requestBybitServices {
         for (JsonNode jsonNode : jsonList) {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText());
-            ticker.setPrice(jsonNode.get("bid1Price").asDouble());
+            ticker.setPrice(jsonNode.get("lastPrice").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("turnover24h").asDouble());
             ticketList.add(ticker);
         }
         return ticketList;
     }
 
-    private static List<TicketBasic> filterList(List<TicketBasic> ticketList){
+    private static List<TicketBasic> filterList(List<TicketBasic> ticketList) {
         ticketList = ticketList.stream().filter(ticket -> ticket.getVolume24Usdt() > 1000000).toList();
 
         List<TicketBasic> list = ticketList.stream().sorted(

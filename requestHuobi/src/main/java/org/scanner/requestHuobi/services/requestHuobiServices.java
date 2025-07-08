@@ -72,7 +72,9 @@ public class requestHuobiServices {
         for (JsonNode jsonNode : jsonList) {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText().toUpperCase());
-            ticker.setPrice(jsonNode.get("ask").asDouble());
+//            ticker.setPrice(jsonNode.get("ask").asDouble());
+            ticker.setPrice(jsonNode.get("close").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("vol").asDouble());
             ticketList.add(ticker);
         }

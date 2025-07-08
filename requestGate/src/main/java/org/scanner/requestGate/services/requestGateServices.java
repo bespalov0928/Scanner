@@ -74,6 +74,7 @@ public class requestGateServices {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("currency_pair").asText().replace("_",""));
             ticker.setPrice(Math.round(price * scale) / scale);
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("quote_volume").asDouble());
             ticketList.add(ticker);
         }

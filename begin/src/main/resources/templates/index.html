@@ -14,84 +14,89 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Scanner</title>
+    <title>Index</title>
 </head>
 <body>
 <!--<div class="container">-->
 <!--    <div class="row">-->
-<!--        <div class="col2">-->
-<!--            <div class="d-flex flex-row-revers p-1">-->
+<!--        <div class="col-8">-->
+<!--            <div class="d-flex flex-row">-->
 <!--                <ul class="nav">-->
 <!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/update}">Обновить</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/chainTwoCoin}">Поиск связки</a>-->
 <!--                    </li>-->
 <!--                </ul>-->
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<!--<div class="container p-3">-->
-<!--    <div class="row">-->
-<!--        <div class="col-3">-->
-<!--            <div class="d-flex flex-row-reverse p-1">-->
-<!--                <ul class="nav">-->
-<!--                    <li class="nav-item">-->
-<!--                        <form th:action="@{/request}" method="GET" enctype="multipart/form-data">-->
-<!--                            <button type="submit" class="btn btn-primary">Выполнить запрос</button>-->
-<!--                        </form>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<div class="container p-3">
-    <div class="table-responsive">
-        <!--        <table class="table table-bordered table-hover">-->
-        <form th:action="@{/update}" method="post" enctype="multipart/form-data" th:object="${tickets}">
-            <button type="submit" class="btn btn-primary">Обновить</button>
-
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Пара</th>
-                    <!--<th>Bybit</th>-->
-                    <!--<th>Okx</th>-->
-                    <!--<th>Bitget</th>-->
-                    <!--<th>Bingx</th>-->
-                    <!--<th>Kucoin</th>-->
-                    <!--<th>Huobi</th>-->
-                    <!--<th>Mexc</th>-->
-                    <!--<th>CoinW</th>-->
-                    <!--<th>Gate</th>-->
-                    <th><a class="nav-link" th:href="@{/bybit/form}">Bybit</a></th>
-                    <th><a class="nav-link" th:href="@{/okx/form}">Okx</a></th>
-                    <th><a class="nav-link" th:href="@{/bitget/form}">Bitget</a></th>
-                    <th><a class="nav-link" th:href="@{/bingx/form}">Bingx</a></th>
-                    <th><a class="nav-link" th:href="@{/kucoin/form}">Kucoin</a></th>
-                    <th><a class="nav-link" th:href="@{/huobi/form}">Huobi</a></th>
-                    <th><a class="nav-link" th:href="@{/mexc/form}">Mexc</a></th>
-                    <th><a class="nav-link" th:href="@{/coinw/form}">CoinW</a></th>
-                    <th><a class="nav-link" th:href="@{/gate/form}">Gate</a></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="tk:${tickets}">
-                    <td><a th:text="${tk.symbol}"/></td>
-                    <td><a th:text="${tk.priceBybit}"/></td>
-                    <td><a th:text="${tk.priceOkx}"/></td>
-                    <td><a th:text="${tk.priceBitget}"/></td>
-                    <td><a th:text="${tk.priceBingx}"/></td>
-                    <td><a th:text="${tk.priceKucoin}"/></td>
-                    <td><a th:text="${tk.priceHuobi}"/></td>
-                    <td><a th:text="${tk.priceMexc}"/></td>
-                    <td><a th:text="${tk.priceCoinW}"/></td>
-                    <td><a th:text="${tk.priceGate}"/></td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+<style>
+    th {
+        position: sticky;
+        top: 0;
+        background-color: #fff; /* Чтобы заголовки были четко видны против контента */
+    }
+</style>
+<!--<div class="container p-3 ">-->
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <form th:action="@{/update}" method="post" enctype="multipart/form-data" th:object="${indexDto}">
+                    <div class="d-flex flex-row">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <button type="submit" class="btn btn-primary">Обновить</button>
+                            </li>
+                            <li class="nav-item">
+                                <b>Пара:</b>
+                                <input name="сoinPair" id="сoinPair" th:field="*{сoinPair}"/>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/chainTwoCoin}">Поиск связки</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="max-height: 900px; overflow: auto;">
+<!--                    <div style="overflow: auto;">-->
+                        <table class="table table-bordered table-hover" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Пара</th>
+                                <th><a class="nav-link" th:href="@{/form/bybit}">Bybit</a></th>
+                                <th><a class="nav-link" th:href="@{/form/okx}">Okx</a></th>
+                                <th><a class="nav-link" th:href="@{/form/bitget}">Bitget</a></th>
+                                <th><a class="nav-link" th:href="@{/form/bingx}">Bingx</a></th>
+                                <th><a class="nav-link" th:href="@{/form/kucoin}">Kucoin</a></th>
+                                <th><a class="nav-link" th:href="@{/form/huobi}">Huobi</a></th>
+                                <th><a class="nav-link" th:href="@{/form/mexc}">Mexc</a></th>
+                                <th><a class="nav-link" th:href="@{/form/coinw}">CoinW</a></th>
+                                <th><a class="nav-link" th:href="@{/form/gate}">Gate</a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="tk:${indexDto.listPrice}">
+                                <td><a th:text="${tk.symbol}"></a></td>
+                                <td><a th:text="${tk.priceBybitText}"></a></td>
+                                <td><a th:text="${tk.priceOkxText}"></a></td>
+                                <td><a th:text="${tk.priceBitgetText}"></a></td>
+                                <td><a th:text="${tk.priceBingxText}"></a></td>
+                                <td><a th:text="${tk.priceKucoinText}"></a></td>
+                                <td><a th:text="${tk.priceHuobiText}"></a></td>
+                                <td><a th:text="${tk.priceMexcText}"></a></td>
+                                <td><a th:text="${tk.priceCoinWText}"></a></td>
+                                <td><a th:text="${tk.priceGateText}"></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-
 </body>
 </html>

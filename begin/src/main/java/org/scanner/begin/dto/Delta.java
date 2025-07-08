@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class Delta {
+    public String exchange;
     public String symbol;
+    public Double delta_value = 0.0;
     public Double bybit = 0.0;
     public Double okx = 0.0;
     public Double bitget = 0.0;

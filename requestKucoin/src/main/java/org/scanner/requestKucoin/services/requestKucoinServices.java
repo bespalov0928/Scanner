@@ -74,6 +74,7 @@ public class requestKucoinServices {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText().replace("-", ""));
             ticker.setPrice(jsonNode.get("last").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("volValue").asDouble());
             ticketList.add(ticker);
         }

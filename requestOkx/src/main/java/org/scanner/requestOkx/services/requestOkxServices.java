@@ -75,6 +75,7 @@ public class requestOkxServices {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("instId").asText().replace("-", ""));
             ticker.setPrice(jsonNode.get("last").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("volCcy24h").asDouble());
             ticketList.add(ticker);
         }

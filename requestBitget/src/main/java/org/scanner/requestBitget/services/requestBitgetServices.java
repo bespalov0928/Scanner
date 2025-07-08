@@ -78,6 +78,7 @@ public class requestBitgetServices {
             TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText());
             ticker.setPrice(Math.round(price * scale) / scale);
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("usdtVolume").asDouble());
             ticketList.add(ticker);
         }
