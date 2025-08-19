@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.mexc.com/api/v3/ticker/24hr
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader

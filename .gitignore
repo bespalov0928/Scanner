@@ -23,8 +23,15 @@
 /exchangeBitget/target/
 /exchangeBingx/target/
 /adminServer/target/
-/requestBybit/target/
 /requestOkx/target/
+/requestBybit/target/
+/requestBitget/target/
+/requestBingx/target/
+/requestKucoin/target/
+/requestHuobi/target/
+/requestMexc/target/
+/requestCoinw/target/
+/requestGate/target/
 
 /bybit/.gitignore
 

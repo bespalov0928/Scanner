@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.scanner.core.dto.Ticket;
+import org.scanner.core.dto.TicketBasic;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,17 +17,21 @@ import java.util.stream.Collectors;
 @Service
 public class requestBybitServices {
 
-    public List<Ticket> getRequest() throws IOException {
-        String response = runRequest();
+    @Value("${dwh.url}")
+    private String url;
+
+    public List<TicketBasic> getRequest(String coinPair) throws IOException {
+        String url = coinPair.equals("_") ? this.url : String.format("%s&symbol=%s", this.url, coinPair);
+        String response = runRequest(url);
         JsonNode jsonNode = processing(response);
         List<JsonNode> jsonList = processingList(jsonNode);
-        List<Ticket> ticketList = parserJsonList(jsonList);
-        List<Ticket> filterList = filterList(ticketList);
+        List<TicketBasic> ticketList = parserJsonList(jsonList);
+        List<TicketBasic> filterList = filterList(ticketList);
         return filterList;
     }
 
-    public static String runRequest() throws IOException {
-        String url = "https://api.bybit.com/v5/market/tickers?category=spot";
+    public static String runRequest(String url) throws IOException {
+//        String url = "https://api.bybit.com/v5/market/tickers?category=spot";
         String rsl = "";
         Response response = null;
         var client = new OkHttpClient().newBuilder().build();
@@ -62,26 +67,27 @@ public class requestBybitServices {
         return result;
     }
 
-    private static List<Ticket> parserJsonList(List<JsonNode> jsonList) {
-        List<Ticket> ticketList = new ArrayList<>();
+    private static List<TicketBasic> parserJsonList(List<JsonNode> jsonList) {
+        List<TicketBasic> ticketList = new ArrayList<>();
         for (JsonNode jsonNode : jsonList) {
-            Ticket ticker = new Ticket();
+            TicketBasic ticker = new TicketBasic();
             ticker.setSymbol(jsonNode.get("symbol").asText());
-            ticker.setPriceBybit(jsonNode.get("bid1Price").asDouble());
+            ticker.setPrice(jsonNode.get("lastPrice").asDouble());
+            ticker.setPriceText(String.format("%.5f", ticker.getPrice()));
             ticker.setVolume24Usdt(jsonNode.get("turnover24h").asDouble());
             ticketList.add(ticker);
         }
         return ticketList;
     }
 
-    private static List<Ticket> filterList(List<Ticket> ticketList){
+    private static List<TicketBasic> filterList(List<TicketBasic> ticketList) {
         ticketList = ticketList.stream().filter(ticket -> ticket.getVolume24Usdt() > 1000000).toList();
 
-        List<Ticket> list = ticketList.stream().sorted(
-                new Comparator<Ticket>() {
+        List<TicketBasic> list = ticketList.stream().sorted(
+                new Comparator<TicketBasic>() {
                     @Override
-                    public int compare(Ticket o1, Ticket o2) {
-                        int rsl = o2.getPriceBybit().compareTo(o1.getPriceBybit());
+                    public int compare(TicketBasic o1, TicketBasic o2) {
+                        int rsl = o2.getPrice().compareTo(o1.getPrice());
                         return rsl;
                     }
                 }).collect(Collectors.toList());

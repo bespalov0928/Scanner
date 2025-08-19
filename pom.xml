@@ -41,6 +41,13 @@
         <module>exchangeMemory</module>
         <module>requestBybit</module>
         <module>requestOkx</module>
+        <module>requestBitget</module>
+        <module>requestBingx</module>
+        <module>requestKucoin</module>
+        <module>requestHuobi</module>
+        <module>requestMexc</module>
+        <module>requestCoinw</module>
+        <module>requestGate</module>
     </modules>
     <!--        </profile>-->
     <!--    </profiles>-->

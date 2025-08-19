@@ -1,0 +1,35 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: coinw-request
+  config:
+    import: optional:configserver:http://localhost:8888
+management:
+
+  #  + Мониторинг сервисов с Micrometer и VictoriaMetrics
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+  health:
+    probes:
+      enabled: true
+#  - Мониторинг сервисов с Micrometer и VictoriaMetrics
+
+#    metrics:
+#      tags:
+#        application: sanbox
+#      export:
+#        prometheus:
+#          enabled: true
+#    prometheus:
+#      enabled=true:
+#  zipkin:
+#    tracing:
+#      endpoint: http://localhost:9411/api/v2/spans
+#  tracing:
+#    sampling:
+#      probability: 1.0

@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.huobi.pro/market/tickers
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader

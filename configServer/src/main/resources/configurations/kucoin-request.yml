@@ -1,0 +1,4 @@
+dwh:
+#  name: bitget
+  url: https://api.kucoin.com/api/v1/market/allTickers
+#  nameLoader: org.scanner.exchange.loader.BitgetLoader
